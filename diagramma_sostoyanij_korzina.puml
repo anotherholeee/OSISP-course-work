@@ -1,0 +1,89 @@
+@startuml diagramma_sostoyanij_korzina
+' Диаграмма состояний: диспетчеризация команд trash-util (trash_util.c, main)
+' plantuml -tpng -charset UTF-8 diagramma_sostoyanij_korzina.puml
+
+skinparam shadowing false
+skinparam linetype ortho
+skinparam defaultFontName DejaVu Sans
+skinparam state {
+  BackgroundColor #E3F2FD
+  BorderColor #1565C0
+  FontSize 11
+}
+skinparam state<<choice>> {
+  BackgroundColor #FFF9C4
+  BorderColor #F9A825
+  FontShape diamond
+}
+skinparam state<<op>> {
+  BackgroundColor #E8F5E9
+  BorderColor #2E7D32
+}
+
+title Диаграмма состояний\n«Корзина» — утилита trash-util (trash_util.c)
+
+left to right direction
+
+[*] --> Waiting
+
+state "Ожидание команды" as Waiting
+
+state d1 <<choice>>
+state d2 <<choice>>
+state d3 <<choice>>
+state d4 <<choice>>
+state d5 <<choice>>
+state d6 <<choice>>
+state d7 <<choice>>
+state d8 <<choice>>
+
+state "Операции интерактивного\nменю (run_menu)" as OpMenu <<op>>
+state "Операции просмотра\nкорзины (list)" as OpList <<op>>
+state "Операции восстановления\nфайла (restore)" as OpRestore <<op>>
+state "Операции очистки\nкорзины (purge)" as OpPurge <<op>>
+state "Операции вывода\nстатистики (info)" as OpInfo <<op>>
+state "Операции вывода\nсправки (print_help)" as OpHelp <<op>>
+
+state join <<join>>
+
+Waiting --> d1
+
+d1 --> OpMenu : [argc < 2]\n[Пользователем выбран\nинтерактивный режим]
+d1 --> d2 : [иначе]
+
+d2 --> OpList : [Введено: list]\n[Пользователем выбран\nпросмотр корзины]
+d2 --> d3 : [иначе]
+
+d3 --> d4 : [Введено: restore]\n[Пользователем выбрано\nвосстановление файла]
+d3 --> d5 : [иначе]
+
+d4 --> OpRestore : [ID задан: argc >= 3]\n[Выполнение restore_entry]
+d4 --> OpHelp : [ID не задан]\n[Сообщение об ошибке,\nвывод справки]
+
+d5 --> OpPurge : [Введено: purge]\n[Пользователем выбрана\nполная очистка корзины]
+d5 --> d6 : [иначе]
+
+d6 --> OpInfo : [Введено: info]\n[Пользователем выбран\nвывод статистики]
+d6 --> d7 : [иначе]
+
+d7 --> OpMenu : [Введено: menu]\n[Пользователем выбран\nинтерактивный режим]
+d7 --> d8 : [иначе]
+
+d8 --> OpHelp : [Неизвестная команда]\n[Пользователем запрошена\nсправка по командам]
+
+OpMenu --> join
+OpList --> join
+OpRestore --> join
+OpPurge --> join
+OpInfo --> join
+OpHelp --> join
+
+join --> [*] : [Завершение работы]
+
+note right of OpMenu
+  В меню: list, restore, info, purge
+  (пункты 1–4), выход — пункт 0
+  или EOF. После выхода — завершение.
+end note
+
+@enduml

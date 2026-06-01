@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1720" height="1220" viewBox="0 0 1720 1220">
+<defs>
+<marker id="ah" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto">
+<path d="M0,0 L9,4 L0,8 Z" fill="#1565c0"/>
+</marker>
+<marker id="au" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto">
+<path d="M0,0 L9,4 L0,8 Z" fill="#2e7d32"/>
+</marker>
+<marker id="ag" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto">
+<path d="M0,0 L9,4 L0,8 Z" fill="#333"/>
+</marker>
+</defs>
+<text x="860.0" y="40" text-anchor="middle" font-size="22" font-weight="bold" font-family="DejaVu Sans, Arial">Схема взаимодействия с пользователем и внешней средой</text>
+<text x="860.0" y="68" text-anchor="middle" font-size="14" font-family="DejaVu Sans, Arial">«Корзина» для программ, использующих системный вызов unlink()</text>
+<rect x="40" y="100" width="400" height="340" fill="#f5f5f5" stroke="#333" stroke-width="2" rx="6"/>
+<text x="240.0" y="124" text-anchor="middle" font-size="14" font-weight="bold" font-family="DejaVu Sans, Arial">Системная программа</text>
+<rect x="70" y="150" width="340" height="72" fill="#fff" stroke="#333" stroke-width="1.8" rx="4"/>
+<text x="240.0" y="172" text-anchor="middle" font-size="11" font-family="DejaVu Sans, Arial">libtrashhook.so</text>
+<text x="240.0" y="188" text-anchor="middle" font-size="11" font-family="DejaVu Sans, Arial">перехват unlink(), unlinkat(), remove()</text>
+<rect x="70" y="280" width="340" height="72" fill="#fff" stroke="#333" stroke-width="1.8" rx="4"/>
+<text x="240.0" y="302" text-anchor="middle" font-size="11" font-family="DejaVu Sans, Arial">trash-util</text>
+<text x="240.0" y="318" text-anchor="middle" font-size="11" font-family="DejaVu Sans, Arial">list, restore, purge, info, menu</text>
+<rect x="470" y="130" width="300" height="195" fill="#f1f8e9" stroke="#333" stroke-width="2" rx="6"/>
+<text x="620.0" y="154" text-anchor="middle" font-size="14" font-weight="bold" font-family="DejaVu Sans, Arial">Системные средства</text>
+<rect x="495" y="170" width="125" height="68" fill="#fff" stroke="#333" stroke-width="1.8" rx="4"/>
+<text x="557.5" y="192" text-anchor="middle" font-size="11" font-family="DejaVu Sans, Arial">libc</text>
+<text x="557.5" y="208" text-anchor="middle" font-size="11" font-family="DejaVu Sans, Arial">unlink, rename,</text>
+<text x="557.5" y="224" text-anchor="middle" font-size="11" font-family="DejaVu Sans, Arial">open, read, write</text>
+<rect x="635" y="170" width="125" height="68" fill="#fff" stroke="#333" stroke-width="1.8" rx="4"/>
+<text x="697.5" y="192" text-anchor="middle" font-size="11" font-family="DejaVu Sans, Arial">libdl</text>
+<text x="697.5" y="208" text-anchor="middle" font-size="11" font-family="DejaVu Sans, Arial">dlsym(RTLD_NEXT)</text>
+<rect x="470" y="395" width="300" height="155" fill="#fff8e6" stroke="#333" stroke-width="2" rx="6"/>
+<text x="620.0" y="419" text-anchor="middle" font-size="14" font-weight="bold" font-family="DejaVu Sans, Arial">Внешние программы</text>
+<rect x="490" y="435" width="260" height="48" fill="#fff" stroke="#333" stroke-width="1.8" rx="4"/>
+<text x="620.0" y="457" text-anchor="middle" font-size="11" font-family="DejaVu Sans, Arial">rm и др. + LD_PRELOAD=libtrashhook.so</text>
+<rect x="490" y="493" width="260" height="38" fill="#fff" stroke="#333" stroke-width="1.8" rx="4"/>
+<text x="620.0" y="515" text-anchor="middle" font-size="11" font-family="DejaVu Sans, Arial">demo-cycle.sh, setup-test-area.sh</text>
+<rect x="1140" y="100" width="540" height="720" fill="#f8fbff" stroke="#333" stroke-width="2" rx="6"/>
+<text x="1410.0" y="124" text-anchor="middle" font-size="14" font-weight="bold" font-family="DejaVu Sans, Arial">Файловая среда</text>
+<ellipse cx="1280" cy="160.0" rx="82.5" ry="9" fill="#e3f2fd" stroke="#333" stroke-width="1.8"/>
+<rect x="1192.5" y="160.0" width="175" height="70" fill="#e3f2fd" stroke="#333" stroke-width="1.8"/>
+<ellipse cx="1280" cy="230.0" rx="82.5" ry="9" fill="#e3f2fd" stroke="#333" stroke-width="1.8"/>
+<text x="1280" y="190" text-anchor="middle" font-size="12" font-weight="bold" font-family="DejaVu Sans, Arial">$HOME</text>
+<text x="1280" y="206" text-anchor="middle" font-size="10" font-family="DejaVu Sans, Arial">рабочие файлы</text>
+<ellipse cx="1280" cy="395.0" rx="82.5" ry="9" fill="#e3f2fd" stroke="#333" stroke-width="1.8"/>
+<rect x="1192.5" y="395.0" width="175" height="70" fill="#e3f2fd" stroke="#333" stroke-width="1.8"/>
+<ellipse cx="1280" cy="465.0" rx="82.5" ry="9" fill="#e3f2fd" stroke="#333" stroke-width="1.8"/>
+<text x="1280" y="425" text-anchor="middle" font-size="12" font-weight="bold" font-family="DejaVu Sans, Arial">Trash/files</text>
+<text x="1280" y="441" text-anchor="middle" font-size="10" font-family="DejaVu Sans, Arial">удалённые объекты</text>
+<ellipse cx="1280" cy="630.0" rx="82.5" ry="9" fill="#e3f2fd" stroke="#333" stroke-width="1.8"/>
+<rect x="1192.5" y="630.0" width="175" height="70" fill="#e3f2fd" stroke="#333" stroke-width="1.8"/>
+<ellipse cx="1280" cy="700.0" rx="82.5" ry="9" fill="#e3f2fd" stroke="#333" stroke-width="1.8"/>
+<text x="1280" y="660" text-anchor="middle" font-size="12" font-weight="bold" font-family="DejaVu Sans, Arial">Trash/info</text>
+<text x="1280" y="676" text-anchor="middle" font-size="10" font-family="DejaVu Sans, Arial">.trashinfo</text>
+<rect x="40" y="760" width="400" height="210" fill="#e8f4fc" stroke="#333" stroke-width="2" rx="6"/>
+<text x="240.0" y="784" text-anchor="middle" font-size="14" font-weight="bold" font-family="DejaVu Sans, Arial">Пользователь и среда запуска</text>
+<rect x="75" y="835" width="105" height="44" fill="#fff" stroke="#333" stroke-width="1.8" rx="4"/>
+<text x="127.5" y="857" text-anchor="middle" font-size="11" font-family="DejaVu Sans, Arial">Пользователь</text>
+<rect x="220" y="825" width="170" height="68" fill="#fff" stroke="#333" stroke-width="1.8" rx="4"/>
+<text x="305.0" y="847" text-anchor="middle" font-size="11" font-family="DejaVu Sans, Arial">Терминал</text>
+<text x="305.0" y="863" text-anchor="middle" font-size="11" font-family="DejaVu Sans, Arial">ввод команд,</text>
+<text x="305.0" y="879" text-anchor="middle" font-size="11" font-family="DejaVu Sans, Arial">вывод сообщений</text>
+<rect x="430" y="108" width="680" height="52" fill="#e3f2fd" stroke="#90caf9" stroke-width="1" rx="4" opacity="0.55"/>
+<text x="440" y="128" font-size="10" fill="#1565c0" font-family="DejaVu Sans, Arial">коридор libtrashhook.so → файловая среда</text>
+<rect x="430" y="318" width="680" height="52" fill="#e8f5e9" stroke="#a5d6a7" stroke-width="1" rx="4" opacity="0.55"/>
+<text x="440" y="338" font-size="10" fill="#2e7d32" font-family="DejaVu Sans, Arial">коридор trash-util → файловая среда</text>
+<path d="M 180,875 L 220,875" fill="none" stroke="#6a1b9a" stroke-width="1.8" marker-end="url(#ag)"/>
+<rect x="155.6" y="854" width="88.80000000000001" height="17" fill="white" stroke="#ddd" rx="2"/>
+<text x="200" y="868" text-anchor="middle" font-size="11" font-weight="bold" font-family="DejaVu Sans, Arial" fill="#6a1b9a">ввод команды</text>
+<path d="M 220,839 L 180,839" fill="none" stroke="#6a1b9a" stroke-width="1.8" marker-end="url(#ag)"/>
+<rect x="165.2" y="818" width="69.6" height="17" fill="white" stroke="#ddd" rx="2"/>
+<text x="200" y="832" text-anchor="middle" font-size="11" font-weight="bold" font-family="DejaVu Sans, Arial" fill="#6a1b9a">результат</text>
+<path d="M 390,857 L 390,720 L 620,720 L 620,435" fill="none" stroke="#e65100" stroke-width="1.8" marker-end="url(#ag)"/>
+<rect x="446.0" y="700" width="108.0" height="17" fill="white" stroke="#ddd" rx="2"/>
+<text x="500" y="714" text-anchor="middle" font-size="11" font-weight="bold" font-family="DejaVu Sans, Arial" fill="#e65100">LD_PRELOAD + rm</text>
+<path d="M 70,316 L 70,750 L 210,750 L 210,316" fill="none" stroke="#6a1b9a" stroke-width="1.8" marker-end="url(#ag)"/>
+<rect x="56.4" y="730" width="127.2" height="17" fill="white" stroke="#ddd" rx="2"/>
+<text x="120" y="744" text-anchor="middle" font-size="11" font-weight="bold" font-family="DejaVu Sans, Arial" fill="#6a1b9a">команды trash-util</text>
+<path d="M 620,435 L 620,560 L 35,560 L 35,186 L 70,186" fill="none" stroke="#e65100" stroke-width="1.8" marker-end="url(#ag)"/>
+<rect x="69.19999999999999" y="540" width="101.60000000000001" height="17" fill="white" stroke="#ddd" rx="2"/>
+<text x="120" y="554" text-anchor="middle" font-size="11" font-weight="bold" font-family="DejaVu Sans, Arial" fill="#e65100">вызов unlink()</text>
+<path d="M 410,186 L 450,186 L 450,204 L 495,204" fill="none" stroke="#455a64" stroke-width="1.8" marker-end="url(#ag)"/>
+<rect x="414.8" y="164" width="114.4" height="17" fill="white" stroke="#ddd" rx="2"/>
+<text x="472" y="178" text-anchor="middle" font-size="11" font-weight="bold" font-family="DejaVu Sans, Arial" fill="#455a64">системные вызовы</text>
+<path d="M 620,204 L 635,204" fill="none" stroke="#455a64" stroke-width="1.8" marker-end="url(#ag)"/>
+<path d="M 410,176 L 410,118 L 980,118 L 980,195 L 1192,195" fill="none" stroke="#1565c0" stroke-width="1.8" marker-end="url(#ah)"/>
+<rect x="554.8" y="96" width="50.400000000000006" height="17" fill="white" stroke="#ddd" rx="2"/>
+<text x="580" y="110" text-anchor="middle" font-size="11" font-weight="bold" font-family="DejaVu Sans, Arial" fill="#1565c0">чтение</text>
+<text x="976" y="183" font-size="10" fill="#1565c0" font-family="DejaVu Sans, Arial" text-anchor="end">↓ $HOME</text>
+<path d="M 410,186 L 410,142 L 1055,142 L 1055,430 L 1192,430" fill="none" stroke="#1565c0" stroke-width="1.8" marker-end="url(#ah)"/>
+<rect x="529.2" y="120" width="101.60000000000001" height="17" fill="white" stroke="#ddd" rx="2"/>
+<text x="580" y="134" text-anchor="middle" font-size="11" font-weight="bold" font-family="DejaVu Sans, Arial" fill="#1565c0">запись объекта</text>
+<text x="1051" y="418" font-size="10" fill="#1565c0" font-family="DejaVu Sans, Arial" text-anchor="end">↓ files</text>
+<path d="M 410,196 L 410,166 L 1130,166 L 1130,665 L 1192,665" fill="none" stroke="#1565c0" stroke-width="1.8" marker-end="url(#ah)"/>
+<rect x="542.0" y="144" width="76.0" height="17" fill="white" stroke="#ddd" rx="2"/>
+<text x="580" y="158" text-anchor="middle" font-size="11" font-weight="bold" font-family="DejaVu Sans, Arial" fill="#1565c0">метаданные</text>
+<text x="1126" y="653" font-size="10" fill="#1565c0" font-family="DejaVu Sans, Arial" text-anchor="end">↓ info</text>
+<path d="M 410,306 L 410,328 L 1220,328 L 1220,195 L 1368,195" fill="none" stroke="#2e7d32" stroke-width="1.8" marker-end="url(#au)"/>
+<rect x="551.6" y="306" width="56.800000000000004" height="17" fill="white" stroke="#ddd" rx="2"/>
+<text x="580" y="320" text-anchor="middle" font-size="11" font-weight="bold" font-family="DejaVu Sans, Arial" fill="#2e7d32">restore</text>
+<text x="1224" y="183" font-size="10" fill="#2e7d32" font-family="DejaVu Sans, Arial">↓ $HOME</text>
+<path d="M 410,316 L 410,352 L 1295,352 L 1295,430 L 1368,430" fill="none" stroke="#2e7d32" stroke-width="1.8" marker-end="url(#au)"/>
+<rect x="535.6" y="330" width="88.80000000000001" height="17" fill="white" stroke="#ddd" rx="2"/>
+<text x="580" y="344" text-anchor="middle" font-size="11" font-weight="bold" font-family="DejaVu Sans, Arial" fill="#2e7d32">list / purge</text>
+<text x="1299" y="418" font-size="10" fill="#2e7d32" font-family="DejaVu Sans, Arial">↓ files</text>
+<path d="M 410,326 L 410,376 L 1370,376 L 1370,665 L 1368,665" fill="none" stroke="#2e7d32" stroke-width="1.8" marker-end="url(#au)"/>
+<rect x="499.6" y="354" width="120.80000000000001" height="17" fill="white" stroke="#ddd" rx="2"/>
+<text x="560" y="368" text-anchor="middle" font-size="11" font-weight="bold" font-family="DejaVu Sans, Arial" fill="#2e7d32">чтение метаданных</text>
+<text x="1374" y="653" font-size="10" fill="#2e7d32" font-family="DejaVu Sans, Arial">↓ info</text>
+<rect x="40" y="1158" width="900" height="48" fill="#fafafa" stroke="#ccc" rx="4"/>
+<line x1="55" y1="1182" x2="85" y2="1182" stroke="#1565c0" stroke-width="3"/>
+<text x="92" y="1186" font-size="10" font-family="DejaVu Sans, Arial">libtrashhook.so (верхний коридор, вход слева)</text>
+<line x1="420" y1="1182" x2="450" y2="1182" stroke="#2e7d32" stroke-width="3"/>
+<text x="457" y="1186" font-size="10" font-family="DejaVu Sans, Arial">trash-util (нижний коридор, вход справа)</text>
+</svg>

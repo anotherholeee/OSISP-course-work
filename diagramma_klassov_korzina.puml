@@ -1,0 +1,152 @@
+@startuml diagramma_klassov_korzina
+' Полная диаграмма классов: все модули .c/.h, struct, typedef, артефакты
+' plantuml diagramma_klassov_korzina.puml
+
+skinparam classAttributeIconSize 0
+skinparam classFontSize 10
+skinparam classAttributeFontSize 9
+skinparam shadowing false
+skinparam linetype ortho
+skinparam nodesep 35
+skinparam ranksep 55
+skinparam defaultFontName DejaVu Sans
+skinparam minClassWidth 240
+
+title Диаграмма классов (структуры данных и модули)\n«Корзина» для программ, использующих системный вызов unlink()
+
+top to bottom direction
+
+' ==================== trash_util.c (весь файл) ====================
+class "trash_util.c" as util_c <<module>> {
+  +main(argc, argv)
+  __
+  -ensure_parent_dirs(path)
+  -list_entries()
+  -remove_cb(fpath, sb, typeflag, ftw)
+  -purge_entries()
+  -info_entries()
+  -restore_entry(id)
+  -print_help(argv0)
+  -run_menu()
+}
+
+' ==================== Ряд модулей (как options | file_collector | …) ====================
+class "trash_hook.c" as hook_c <<module>> {
+  +unlink(pathname)
+  +unlinkat(dirfd, pathname, flags)
+  +remove(pathname)
+  __
+  -init_real_symbols()
+  -resolve_unlink_symbol()
+  -resolve_unlinkat_symbol()
+  -call_real_unlink(path)
+  -call_real_unlinkat(dirfd, path, flags)
+  -should_bypass()
+  -resolve_absolute_from_dirfd(...)
+  -safe_copy_file(src, dst, mode)
+  -unlink_to_trash_abs(abs_path)
+}
+
+class "trash_common.c" as common_c <<module>> {
+  +trash_get_home(buf, size)
+  +trash_paths(root, files, info)
+  +trash_ensure_layout()
+  +trash_url_encode_path(src, dst, sz)
+  +trash_url_decode_path(src, dst, sz)
+  +trash_now_iso8601(dst, sz)
+  +trash_generate_id(path, dst, sz)
+  +trash_parse_info(path, entry)
+  +trash_write_info(path, entry)
+  +trash_resolve_unique_path(base, dst, sz)
+  +trash_dir_size_bytes(path)
+  __
+  -mkdir_p(path, mode)
+  -hex_value(c)
+}
+
+' ==================== trash_common.h + trash_entry ====================
+class "trash_common.h" as header <<header>> {
+  +TRASH_SUBDIR
+  +TRASH_FILES_DIR
+  +TRASH_INFO_DIR
+  +TRASH_INFO_EXT
+  +TRASH_LINE_BUF
+  __
+  +struct trash_entry
+  +trash_get_home()
+  +trash_paths()
+  +trash_ensure_layout()
+  +trash_url_encode_path()
+  +trash_url_decode_path()
+  +trash_now_iso8601()
+  +trash_generate_id()
+  +trash_parse_info()
+  +trash_write_info()
+  +trash_resolve_unique_path()
+  +trash_dir_size_bytes()
+}
+
+class "trash_entry" as entry <<struct>> {
+  +id : char[NAME_MAX]
+  +original_path : char[PATH_MAX]
+  +deletion_date : char[64]
+  +mode : mode_t
+  +uid : uid_t
+  +gid : gid_t
+  +atime_sec : long
+  +atime_nsec : long
+  +mtime_sec : long
+  +mtime_nsec : long
+}
+
+' ==================== Типы (trash_hook.c) ====================
+class "unlink_fn_t" as t_unlink <<typedef>> {
+  +int (*fn)(const char *pathname)
+}
+
+class "unlinkat_fn_t" as t_unlinkat <<typedef>> {
+  +int (*fn)(int dirfd, const char *, int flags)
+}
+
+' ==================== Сборка (Makefile) ====================
+class "libtrashhook.so" as so <<artifact>> {
+  trash_hook.o
+  trash_common.o
+}
+
+class "trash-util" as exe <<artifact>> {
+  trash_util.o
+  trash_common.o
+}
+
+' ===== Геометрия: ряды, не столбик =====
+util_c -[hidden]down- hook_c
+hook_c -[hidden]right- common_c
+
+hook_c -[hidden]down- entry
+common_c -[hidden]down- entry
+header -[hidden]left- entry
+
+hook_c -[hidden]down- t_unlink
+t_unlink -[hidden]right- t_unlinkat
+
+common_c -[hidden]down- so
+util_c -[hidden]down- exe
+so -[hidden]right- exe
+
+' ===== Зависимости =====
+util_c ..> hook_c : LD_PRELOAD\n(сценарий)
+util_c ..> common_c
+hook_c ..> common_c
+hook_c ..> entry : метаданные
+util_c ..> entry : list / restore
+header ..> entry
+common_c ..|> header : реализует
+
+hook_c ..> t_unlink
+hook_c ..> t_unlinkat
+
+hook_c ..> so
+util_c ..> exe
+
+@enduml

@@ -1,0 +1,13 @@
+Связи «системная часть → прикладные сценарии»:
+
+  trash_hook.c  ──►  rm + LD_PRELOAD     (библиотека подключается при удалении)
+  trash_hook.c  ──►  demo-cycle.sh       (в скрипте: rm с LD_PRELOAD)
+
+  trash_util.c  ──►  trash-util CLI/меню  (утилита собрана из trash_util.c)
+  trash_util.c  ──►  demo-cycle.sh        (в скрипте вызывается trash-util list)
+
+  Makefile      ──►  demo-cycle.sh       (сборка перед демо: make)
+
+  Пользователь  ──►  setup-test-area.sh  (ручной запуск подготовки тестов)
+
+Сценарии → внешние утилиты: demo → make, gcc, rm; setup → bash; rm-сценарий → rm.
